@@ -1,65 +1,63 @@
-/*class Ball{
-    constructor(x, y, r){
-       this.x = x;
-       this.y = y;
-       this.radius = r;
-    }
-    draw(){
-       ellipse(this.x, this.y,this.radius*2, this.radius*2);
-     }
- }
- 
-
-
-function setup(){
-    createCanvas(1000,860);
-  
-} 
-function draw(){
-    let b = new Ball(500,300,200);
-     b.draw();
-    
-}*/
 var play = 0;
 var death;
 var isDead = false;
 var start, respawn, foodCollide, info, back;
 var score = 0;
+var newscore=0;
 
-class Players{
-    constructor(x,y,h,w,sh,sp){
+class Foods{
+    constructor(x,y,h,w,sh,colour){
         this.x=x;
         this.y=y;
         this.height=h;
         this.width=w;
-        this.shape=sh;
-      
+		this.shape=sh;
+		this.colour=colour;
+		
     }
+    
     draw(){
+	
         if(this.shape=="ellipse" || this.shape== "circle" ){
-            fill("orange");
+           fill(this.colour);
 		    strokeWeight(1);
-            ellipse(this.x,this.y,this.height,this.width);
+            ellipse(this.x,this.y,this.width,this.height);
           
         }
         else if(this.shape=="rectangle"|| this.shape=="square"){
-            rect(this.x,this.y, this.height,this.width);
+			fill(this.colour);
+            rect(this.x,this.y, this.width,this.height);
         }
         else if(this.shape=="flower"){
+			fill(this.colour);
             translate(this.x,this.y);
          }
+	}
 
+	
+}
+
+
+class Players extends Foods{
+    constructor(x,y,h,w,sh,colour,sp){
+		super(x,y,h,w,sh,colour);
+		this.Startspeed=sp;
+		this.speed=sp;     
+}
+    get CalSpeed(){
+		this.speed=this.Startspeed+score /4;
+	    return this.speed;
+       }
+    set CalSpeed(Newspeed){
+		this.speed=Newspeed;	
     }
-    
    
 }
-var food = {
-	x: 0,
-	y: 0,
-}
 
-player= new Players(300,200,20,20,"circle",1);
-monster= new Players(-20,-20,35,40,"ellipse",20);
+food=new Foods(0,0,10,10,"ellipse","black");
+monster= new Players(-20,-20,35,40,"ellipse","red",1);
+player= new Players(300,200,20,20,"circle","orange",20);
+
 var resetPos = function() {
 	player.y = 200;
 	player.x = 300;
@@ -67,8 +65,8 @@ var resetPos = function() {
 	monster.y = -29;
 	food.x = random(10, 990);
 	food.y = random(10, 690);
-	player.speed = 20;
-	monster.speed = 1;
+	player.Calspeed = 20;
+	monster.Calspeed = 1;
 }
 
 //----------------------------------------------
@@ -97,7 +95,6 @@ function mousePressed() {
 	
 }
 
-
 function setup() {
 	createCanvas(1000, 700);
 	food.x = random(10, 990);
@@ -113,20 +110,18 @@ function draw() {
 	fill(255);
 	rect(0, 0, 1000, 700);
 	//this will set the speed of the dot and the player related to the points
-	player.speed = 20 + score / 4;
-	monster.speed = 1 + score / 4;
-    //player.speed.CalcSpeed(score);
-    //monster.speed.CalcSpeed(score);
+	monster.CalSpeed;
+    // console.log("to speed tou monster einai "+monster.speed);
+	player.CalSpeed;
+	//console.log("to speed tou player einai " +player.speed);
+    
 	
 	//this is what happens when the player and the dot of death hit eachother
 	if (isDead === true) {
 		play = 2;
 		isDead = false;
 		resetPos(); 
-		
-
 	}
-
 
 	if (play === 1) {
 		fill("orange");
@@ -141,8 +136,8 @@ function draw() {
 			}
 
 			// this is some stuff about the dot.
-			fill(random(0, 255), random(0, 255), random(0, 255));
-			ellipse(food.x, food.y, 10, 10);
+			food.draw();
+
 			// if the player hits the food...
 			foodCollide = collideCircleCircle(player.x, player.y, 20, food.x, food.y, 10);
 			if (foodCollide === true) {
@@ -174,10 +169,8 @@ function draw() {
 		textSize(30);
         text("Score: " + score, 10, 30);
         player.draw();
-		//ellipse(player.x, player.y, 20, 20);
 		//the evil dot... moves the monster
 		for (var q = 0; q < monster.speed; q++) {
-
 
 			if (monster.x > player.x) {
 				monster.x -= 1;
@@ -197,15 +190,10 @@ function draw() {
 			}
 
 		}
-
-
-		fill("red");
 		strokeWeight(4);
         stroke(163, 31, 31);
         monster.draw();
-		//ellipse(monster.x, monster.y, 40, 40);
-
-
+		
 	}
 
 	//---------------------------------------------------------------------------
@@ -273,4 +261,5 @@ function draw() {
 	}
 
 }
+
 
