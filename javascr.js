@@ -50,7 +50,21 @@ class Players extends Foods{
        }
     set CalSpeed(Newspeed){
 		this.speed=Newspeed;	
-    }
+	}
+	move(val1,val2){
+		if(this.x>val1){
+			this.x-=1;
+		}
+		if(this.x<val1){
+			this.x+=1;
+		}
+		if(this.y>val2){
+			this.y-=1;
+		}
+		if(this.y<val2){
+			this.y+=1;
+		}
+	}
    
 }
 
@@ -115,7 +129,6 @@ function draw() {
 	player.CalSpeed;
 	//console.log("to speed tou player einai " +player.speed);
     
-	
 	//this is what happens when the player and the dot of death hit eachother
 	if (isDead === true) {
 		play = 2;
@@ -143,25 +156,12 @@ function draw() {
 			if (foodCollide === true) {
 				food.x = random(10, 990);
 				food.y = random(10, 690);
-				score += 1;
-				
+				score += 1;				
 			}
 			
 			//moves the player
-
-			if (player.x > mouseX) {
-				player.x -= 1
-			}
-			if (player.x < mouseX) {
-				player.x += 1
-			}
-
-			//keeps it's Y equal with mouse Y
-			if (player.y > mouseY) {
-				player.y -= 1
-			}
-			if (player.y < mouseY) {
-				player.y += 1
+			player.move(mouseX,mouseY);
+			
 			}
 		}
 
@@ -171,24 +171,8 @@ function draw() {
         player.draw();
 		//the evil dot... moves the monster
 		for (var q = 0; q < monster.speed; q++) {
-
-			if (monster.x > player.x) {
-				monster.x -= 1;
-
-			}
-			if (monster.x < player.x) {
-				monster.x += 1;
-
-			}
-			if (monster.y > player.y) {
-				monster.y -= 1;
-
-			}
-			if (monster.y < player.y) {
-				monster.y += 1;
-
-			}
-
+			monster.move(player.x,player.y);			
+		
 		}
 		strokeWeight(4);
         stroke(163, 31, 31);
