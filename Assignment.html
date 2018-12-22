@@ -1,18 +1,61 @@
+<!DOCTYPE html>
 <html>
 
 
 <head>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
 <script scr="p5.js"></script>
 <script scr="p5.min.js"></script>
-<script src="p5.collide2d.js"></script>
+<script src="p5.collide2d.js"></script> 
 <script src="p5.collide2d.min.js"></script>
-<script src="original.js"></script>
+<script scr="p5.dom.min.js"></script>
+<script> scr="p5.sound.min.js "</script>
+<script type="text/javascript"  src="classes.js.js"></script>
+<script type="text/javascript"  src="class_players.js"></script>
+<script type="text/javascript"  src="index.js"></script>
 
 
 </head>
 <body>
+ <div class="btn-group" style="width:500%">
+    <form id="level1_form">
+    <button id="Level1">Level 1</button>
+    
+    <form id="level2_form">
+    <button id="Level2">Level 2</button>
+    
+    <form id ="level3_form">
+    <button id="Level3">Level 3</button>
+    </div>
+</form>
 </body>
+
+<style>
+        .btn-group button {
+          background-color: #4CAF50; /* Green background */
+          border: 1px solid green; /* Green border */
+          color: white; /* White text */
+          padding: 8px 56px; /* Some padding */
+          cursor: pointer; /* Pointer/hand icon */
+          float: center; /* Float the buttons side by side */
+        }
+        
+        /* Clear floats (clearfix hack) */
+        .btn-group:after {
+          content: "";
+          clear: both;
+          display: table;
+        }
+        
+        .btn-group button:not(:last-child) {
+          border-right: none; /* Prevent double borders */
+        }
+        
+        /* Add a background color on hover */
+        .btn-group button:hover {
+          background-color: #3e8e41;
+        }
+        </style>
     
 </html>
 
