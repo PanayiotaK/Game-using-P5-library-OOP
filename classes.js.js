@@ -8,23 +8,32 @@ class Foods{
 		this.colour=colour;
 		
     }
+    setColour(colour){
+        this.colour = colour;
+    }
+    setShape(shape){
+        this.shape=shape;
+    }
+    setX_Y(val_x,val_y){
+        this.x=val_x;
+        this.y=val_y;
+    }
+
     
     draw(){
-	
-        if(this.shape=="ellipse" || this.shape== "circle" ){
-           fill(this.colour);
-		    strokeWeight(1);
+        fill(this.colour);
+        strokeWeight(1);
+        if(this.shape=="ellipse" || this.shape== "circle" ){           	    
             ellipse(this.x,this.y,this.width,this.height);
           
         }
         else if(this.shape=="rectangle"|| this.shape=="square"){
-			fill(this.colour);
             rect(this.x,this.y, this.width,this.height);
         }
-        else if(this.shape=="flower"){
-			fill(this.colour);
-            translate(this.x,this.y);
-         }
+       
+        else if(this.shape=="triangle"){
+            triangle(this.x, this.y,this.x+this.width,this.y, this.x,this.y+this.height);
+        }
 	}
 
 
