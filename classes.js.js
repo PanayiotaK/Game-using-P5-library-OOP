@@ -6,17 +6,31 @@ class Foods{
         this.width=w;
 		this.shape=sh;
 		this.colour=colour;
-		
     }
     setColour(colour){
         this.colour = colour;
     }
+    getColour(){
+        return this.colour;
+    }
     setShape(shape){
         this.shape=shape;
     }
-    setX_Y(val_x,val_y){
+    getShape(){
+        return this.shape;
+    }
+
+    setX(val_x){
         this.x=val_x;
+    }
+    setY(val_y){
         this.y=val_y;
+    }
+    getX(){
+        return this.x ;
+    }
+    getY(){
+        return this.y;                                                             
     }
 
     

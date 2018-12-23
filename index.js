@@ -16,11 +16,16 @@ monster2=new Players(10,10,45,30,"ellipse","pink",3);
 food2=new Foods(20,20,13,13,"triangle","black");
 
 var resetPos = function() {
-	player.setX_Y(200,300);
-	monster.setX_Y(-20,-29);
-    monster2.setX_Y(20,20);
-	food.setX_Y(random(10,990),random(10, 690));
-    food2.setX_Y(random(20, 990),random(20, 690)) ;
+    player.setX(200);
+    player.setY(300);
+    monster.setX(-20);
+    monster.setY(-29);
+    monster2.setX(20);
+    monster2.setY(20);
+    food.setX(random(10,990));
+    food.setY(random(10, 690));
+    food2.setX(random(20, 990));
+    food2.setY(random(20, 690)) ;
     player.Calspeed = 20;
     monster.Calspeed = 1;
     monster2.Calspeed=3;
@@ -72,8 +77,10 @@ function mousePressed() {
 
 function setup() {
 	createCanvas(1000, 700);
-	food.setX_Y(random(10, 990),random(10, 690)) ;
-    food2.setX_Y(random(20, 990),random(20, 990)) ;
+    food.setX(random(10, 990));
+    food.setY(random(10, 690)) ;
+    food2.setX(random(20, 990));
+    food2.setY(random(20, 690));
 }
 
 function draw() {
@@ -97,7 +104,7 @@ function draw() {
         //keeps it's X equal with mouse X
 		for (var i = 0; i < player.speed; i++) {
 			//first thing checks to see if the dot dies
-            death = collideCircleCircle(monster.x, monster.y, 40, player.x, player.y, 20) || collideCircleCircle(monster2.x, monster2.y, 30, player.x, player.y, 20);
+            death = collideCircleCircle(monster.getX(), monster.getY(), 40, player.getX(), player.getY(), 20) || collideCircleCircle(monster2.getX(), monster2.getY(), 30, player.getX(), player.getY(), 20);
 			if (death === true) {
 				isDead = true;
 			}
@@ -105,16 +112,18 @@ function draw() {
 			food.draw();
             if(level3===true){
                 food2.draw();
-                foodCollide2 = collideCircleCircle(player.x, player.y, 20, food2.x, food2.y, 10);
+                foodCollide2 = collideCircleCircle(player.getX(), player.getY(), 20, food2.getX(), food2.getY(), 10);
 			    if (foodCollide2 === true) {
-				    food2.setX_Y(random(20, 990),random(20, 690)) ;
+                    food2.setX(random(20, 990));
+                    food2.setY(random(20, 690)) ;
                     score += 2; 
                  }      
             }
 			// if the player hits the food...
-			foodCollide = collideCircleCircle(player.x, player.y, 20, food.x, food.y, 10);
+			foodCollide = collideCircleCircle(player.getX(), player.getY(), 20, food.getX(), food.getY(), 10);
 			if (foodCollide === true) {
-				food.setX_Y(random(10,990),random(10, 690));
+                food.setX(random(10,990));
+                food.setY(random(10, 690));
                 score += 1;              				
 			}
 		
@@ -127,12 +136,12 @@ function draw() {
         player.draw();
 		//the evil dot... moves the monster
 		for (var q = 0; q < monster.speed; q++) {	
-            monster.move(player.x,player.y);
+            monster.move(player.getX(),player.getY());
         }
 
         if(level2===true || level3===true){
-            for (var q = 0; q < monster2.speed; q++) {
-                 monster2.move(player.x,player.y);
+            for (var q = 0; q < monster2.Calspeed; q++) {
+                 monster2.move(player.getX(),player.getY());
              }
         strokeWeight(4);
         stroke(163, 31, 31)  
@@ -244,7 +253,7 @@ document.addEventListener("DOMContentLoaded", function(){
         
          speed_div=5;
          selected=true;
-         monster.shape="ellipse";
+         monster.setShape("ellipse");
          level1=true;
 
     }
@@ -254,7 +263,7 @@ document.addEventListener("DOMContentLoaded", function(){
     function Game2(){
         
         speed_div=3;
-        monster.shape="rectangle";
+        monster.setShape("rectangle");
         selected=true;
         level2=true;   
     }

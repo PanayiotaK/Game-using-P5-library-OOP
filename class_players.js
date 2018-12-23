@@ -7,7 +7,9 @@ class Players extends Foods{
 	 set Calspeed(value){
 		 this.speed=value;
 	 }
-	 
+	 get Calspeed(){
+		 return this.speed;
+	 }
 	 CalSpeed(v){
 		this.speed=this.Startspeed+score /v;	    
 	 }
