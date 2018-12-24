@@ -6,13 +6,17 @@ var start, respawn, foodCollide, info, back;
 var score = 0;
 var newscore=0;
 var select;
-var food, player,monster,monster2,level2,level3,food2,ContLevel,level1;
-level2=false; level3=false; level1=false; ContLevel=false; selected=false;
+var change=false;
+var food, player,monster,monster2,level2,level3,food2,ContLevel,level1,r,g,b,submit_but;
+level2=false; level3=false; level1=false; ContLevel=false; selected=false,submit_but=false;
+r=255;
+g=255;
+b=255;
 
 food=new Foods(0,0,10,10,"ellipse","black");
 monster= new Players(-20,-20,35,40,"ellipse","red",1);
 player= new Players(300,200,20,20,"circle","orange",20);
-monster2=new Players(10,10,45,30,"ellipse","pink",3);
+monster2=new Players(-10,-10,45,30,"ellipse","pink",3);
 food2=new Foods(20,20,13,13,"triangle","black");
 
 var resetPos = function() {
@@ -23,30 +27,30 @@ var resetPos = function() {
     monster2.setX(20);
     monster2.setY(20);
     food.setX(random(10,990));
-    food.setY(random(10, 690));
+    food.setY(random(10, 600));
     food2.setX(random(20, 990));
-    food2.setY(random(20, 690)) ;
+    food2.setY(random(20, 600)) ;
     player.Calspeed = 20;
     monster.Calspeed = 1;
     monster2.Calspeed=3;
     player.setColour("orange");
     monster.setColour("red");
     monster2.setColour("pink");
+    level1=false;
     level2=false;
     level3=false;
     play=1;
     score=0;
 }
 
-
 function mousePressed() {
-	start = collidePointRect(mouseX, mouseY,450, 240, 200, 100)
+	start = collidePointRect(mouseX, mouseY,400, 240, 200, 100)
 	 if (play === 0 && start === true){
           play=1;
     }
 
-    ContLevel= collidePointRect(mouseX, mouseY, 330, 270, 220, 70);
-	respawn = collidePointRect(mouseX, mouseY, 330, 370, 220, 70);
+    ContLevel= collidePointRect(mouseX, mouseY, 330, 250, 220, 70);
+	respawn = collidePointRect(mouseX, mouseY, 330, 350, 220, 70);
 	if (play === 2 && ContLevel === true && level2===true) {
         resetPos();
         level2=true;        
@@ -68,45 +72,47 @@ function mousePressed() {
 	if (play === 0 && info === true) {
 		play = 3;
 	}
-	back = collidePointRect(mouseX, mouseY,800, 600, 140, 80);
+	back = collidePointRect(mouseX, mouseY,800, 500, 140, 80);
 	if (play === 3 && back === true) {
 		play = 0;
-	}
+    }
+    
 	
 }
 
+
 function setup() {
-	createCanvas(1000, 700);
+	createCanvas(1000, 600);
     food.setX(random(10, 990));
-    food.setY(random(10, 690)) ;
+    food.setY(random(10, 600)) ;
     food2.setX(random(20, 990));
-    food2.setY(random(20, 690));
+    food2.setY(random(20, 600));
 }
 
 function draw() {
- 
-	background(255);
+ 	background(255);
 	stroke(0);
 	strokeWeight(10);
-    fill(255);
-    rect(0, 0, 1000, 700);
-       
-      //this is what happens when the player and the dot of death hit eachother
+    fill(r,g,b);
+    rect(0, 0, 1000,600);
+     //this is what happens when the player and the dot of death hit eachother
 	if (isDead === true) {
         play = 2;
 		isDead = false;
-		//resetPos(); 
+		
 	}
-
-	if (play === 1 && selected===true) {
-         fill("orange");
+        
+	if (play === 1 && selected===true ) {
+       
+        fill("orange");
 		strokeWeight(1);
-        //keeps it's X equal with mouse X
+    
 		for (var i = 0; i < player.speed; i++) {
-			//first thing checks to see if the dot dies
-            death = collideCircleCircle(monster.getX(), monster.getY(), 40, player.getX(), player.getY(), 20) || collideCircleCircle(monster2.getX(), monster2.getY(), 30, player.getX(), player.getY(), 20);
-			if (death === true) {
-				isDead = true;
+            //first thing checks to see if the dot dies
+            death = collideCircleCircle(monster2.getX(), monster2.getY(), 45, player.getX(), player.getY(), 20)||collideCircleCircle(monster.getX(), monster.getY(), 35, player.getX(), player.getY(), 20);
+            if (death === true) {
+                isDead = true;
+                
 			}
 			// this is some stuff about the dot.
 			food.draw();
@@ -115,7 +121,7 @@ function draw() {
                 foodCollide2 = collideCircleCircle(player.getX(), player.getY(), 20, food2.getX(), food2.getY(), 10);
 			    if (foodCollide2 === true) {
                     food2.setX(random(20, 990));
-                    food2.setY(random(20, 690)) ;
+                    food2.setY(random(20, 600)) ;
                     score += 2; 
                  }      
             }
@@ -123,60 +129,84 @@ function draw() {
 			foodCollide = collideCircleCircle(player.getX(), player.getY(), 20, food.getX(), food.getY(), 10);
 			if (foodCollide === true) {
                 food.setX(random(10,990));
-                food.setY(random(10, 690));
+                food.setY(random(10, 600));
                 score += 1;              				
 			}
 		
-		player.move(mouseX,mouseY);
-		}
-
+        player.move(mouseX,mouseX,mouseY,mouseY);
+        player.move(10,990,10,590);
+        }
 		fill("orange");
 		textSize(30);
         text("Score: " + score, 10, 30);
+        fill("Black");
+        textSize(25);
+        if(level1===true){             
+            text("Level 1", 10, 60);
+        }
+        if(level2===true){             
+            text("Level 2", 10, 60);
+        }
+        if(level3===true){             
+            text("Level 3", 10, 60);
+        }
+
+    
         player.draw();
 		//the evil dot... moves the monster
 		for (var q = 0; q < monster.speed; q++) {	
-            monster.move(player.getX(),player.getY());
+            monster.move(player.getX(),player.getX(),player.getY(),player.getY());
+            
         }
 
         if(level2===true || level3===true){
             for (var q = 0; q < monster2.Calspeed; q++) {
-                 monster2.move(player.getX(),player.getY());
+                 monster2.move(player.getX(),player.getX(),player.getY(),player.getY());
+                 monster2.move(10,990,10,600);
              }
         strokeWeight(4);
         stroke(163, 31, 31)  
         monster2.draw();
-        
-		}
+                
+        }
+		
 		strokeWeight(4);
         stroke(163, 31, 31);
         monster.draw();
        
-		
-	}
+    }	
+    
         
 	//---------------------------------------------------------------------------
     
-    if (play === 0 && selected===true) {
-            
+    if (play === 0 && selected===true && change===true) {
+            strokeWeight(5);
+            fill(170);
+             rect(840, 20, 80, 80);
+            textSize(80);
+            text("?", 850, 87);
             fill(66, 244, 95);
             strokeWeight(1);
             noStroke();
-            rect(450, 240, 200, 100);
+            rect(400, 240, 200, 100);
             stroke(0);
             fill(0);
             textSize(75);
-            text("Play!", 450, 300);
+            text("Play!", 410, 300);
             textSize(30);
             //text("Info: Keep your mouse inside of the box! \nRun away from the monster (The red dot).", 10, 30);
-            text("Coded By Adin Jura! 			                                   										 v[1.9]", 10, 650);
+            text("Coded By Adin Jura! 			                                   										 v[1.9]", 10, 620);
         }
-         if (play === 0 ){
+    if (play === 0 && change===false){
             strokeWeight(5);
             fill(170);
             rect(840, 20, 80, 80);
             textSize(80);
             text("?", 850, 87);
+            noStroke();
+            fill(0);
+            textSize(35);
+            text("Please enter your name to the box at the top to start ", 100, 550);
         }
      
         if (play === 2) {
@@ -184,24 +214,24 @@ function draw() {
             textSize(50);
             strokeWeight(1);
             fill('red');
-            text("U is dead... ", 330, 250);
+            text("You are dead... ", 300, 230);
             //restart button..
             fill(7, 186, 61);
-             rect(330, 270, 220, 70);
+            rect(330, 250, 220, 70);
             fill("blue");
             textSize(20);
-            text("Restart with this level.", 340, 305);
+            text("Restart with this level.", 340, 285);
             fill(7, 186, 61);
-            rect(330, 370, 220, 70);
+            rect(330, 350, 220, 70);
             fill("blue");
             textSize(19);
-            text("Restart with another level", 335, 405);
+            text("Restart with another level", 335, 385);
             
             //shows how many points that you got
             fill("black");
             textSize(30);
             noStroke();
-            text("You got: " + score + " point(s)", 330, 500)
+            text("You got: " + score + " point(s)", 330, 480)
     
         }
         
@@ -218,11 +248,11 @@ function draw() {
             stroke(0);
             strokeWeight(5);
             fill(172);
-            rect(800, 600, 140, 80);
+            rect(800, 500, 140, 80);
             noStroke();
             fill(0);
             textSize(55);
-            text("Back", 810, 645);
+            text("Back", 810, 560);
         }
         player.CalSpeed(speed_div);
         monster.CalSpeed(speed_div); 
@@ -231,17 +261,22 @@ function draw() {
         console.log("to speed to player eiani "+ player.speed);
 
     }
+
     //this will set the speed of the dot and the player related to the points
    
 document.addEventListener("DOMContentLoaded", function(){
     var username=document.getElementById("username");
+    
+
+    
     function name(){       
         let val=document.getElementById("username").value;
         alert("hello  "+ val +"  please select level to continue");
+        change=true;
         
-    }
-    
+      }
     username.addEventListener("change",name);
+
     var cf = document.getElementById("level1_form");
 
     cf.addEventListener("submit", function (event){
@@ -279,12 +314,46 @@ document.addEventListener("DOMContentLoaded", function(){
         level3=true;       
     }
     L3.addEventListener("click",Game3);
-   
-
     var cf1 = document.getElementById("level2_form");
     cf1.addEventListener("submit", function (event){
         event.preventDefault()
     });
-    
+
+
+    var yel=document.getElementById("Yellow");
+    function ColourY(){
+        r=255;
+        g=254;
+        b=160;    
+    }
+    yel.addEventListener("click",ColourY);
+   
+    var blue=document.getElementById("Blue");
+    function ColourB(){
+        r=100;
+        g=240;
+        b=200;    
+    }
+    blue.addEventListener("click",ColourB);
+
+    var green=document.getElementById("Green");
+    function ColourG(){
+        r=150;
+        g=240;
+        b=150;    
+    }
+    green.addEventListener("click",ColourG);
+    var white=document.getElementById("White");
+    function ColourW(){
+        r=255;
+        g=255;
+        b=255;    
+    }
+    white.addEventListener("click",ColourW);
+
+    var cf2 = document.getElementById("level3_form");
+    cf2.addEventListener("submit", function (event2){
+        event2.preventDefault()
+    });
     
 });
