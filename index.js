@@ -13,11 +13,6 @@ r=255;
 g=255;
 b=255;
 
-food=new Foods(0,0,10,10,"ellipse","black");
-monster= new Players(-20,-20,35,40,"ellipse","red",1);
-player= new Players(300,200,20,20,"circle","orange",20);
-monster2=new Players(-10,-10,45,30,"ellipse","pink",2);
-food2=new Foods(20,20,13,13,"triangle","black");
 
 var resetPos = function() {
     player.setX(200);
@@ -81,10 +76,13 @@ function mousePressed() {
 
 function setup() {
 	createCanvas(1000, 600);
-    food.setX(random(10, 990));
-    food.setY(random(10, 590)) ;
-    food2.setX(random(20, 990));
-    food2.setY(random(20, 590));
+      
+food=new Foods(random(10, 990),random(20, 590),10,10,"ellipse","black");
+monster= new Players(-20,-29,35,40,"ellipse","red",1);
+player= new Players(300,200,20,20,"circle","orange",20);
+monster2=new Players(-10,-10,45,30,"ellipse","pink",2);
+food2=new Foods(random(20, 990),random(20, 590),13,13,"triangle","black");
+ 
 }
 
 function draw() {
@@ -103,7 +101,7 @@ function draw() {
         
 	if (play === 1 && selected===true ) {
        
-        fill("orange");
+       // fill("orange");
 		strokeWeight(1);
     
 		for (var i = 0; i < player.speed; i++) {
@@ -160,16 +158,13 @@ function draw() {
         if(level2===true || level3===true){
             for (var q = 0; q < monster2.Calspeed; q++) {
                  monster2.move(player.getX(),player.getX(),player.getY(),player.getY());
-                 monster2.move(10,990,10,600);
+                 //monster2.move(10,990,10,600);
              }
-        strokeWeight(2);
-        stroke(0)  
+         
         monster2.draw();
                 
-        }
+        }	
 		
-		strokeWeight(2);
-        stroke(0);
         monster.draw();
        
     }	
