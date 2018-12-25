@@ -16,7 +16,7 @@ b=255;
 food=new Foods(0,0,10,10,"ellipse","black");
 monster= new Players(-20,-20,35,40,"ellipse","red",1);
 player= new Players(300,200,20,20,"circle","orange",20);
-monster2=new Players(-10,-10,45,30,"ellipse","pink",3);
+monster2=new Players(-10,-10,45,30,"ellipse","pink",2);
 food2=new Foods(20,20,13,13,"triangle","black");
 
 var resetPos = function() {
@@ -24,15 +24,15 @@ var resetPos = function() {
     player.setY(300);
     monster.setX(-20);
     monster.setY(-29);
-    monster2.setX(20);
-    monster2.setY(20);
+    monster2.setX(-10);
+    monster2.setY(-10);
     food.setX(random(10,990));
-    food.setY(random(10, 600));
+    food.setY(random(10, 590));
     food2.setX(random(20, 990));
-    food2.setY(random(20, 600)) ;
+    food2.setY(random(20, 590)) ;
     player.Calspeed = 20;
     monster.Calspeed = 1;
-    monster2.Calspeed=3;
+    monster2.Calspeed=2;
     player.setColour("orange");
     monster.setColour("red");
     monster2.setColour("pink");
@@ -48,7 +48,6 @@ function mousePressed() {
 	 if (play === 0 && start === true){
           play=1;
     }
-
     ContLevel= collidePointRect(mouseX, mouseY, 330, 250, 220, 70);
 	respawn = collidePointRect(mouseX, mouseY, 330, 350, 220, 70);
 	if (play === 2 && ContLevel === true && level2===true) {
@@ -80,13 +79,12 @@ function mousePressed() {
 	
 }
 
-
 function setup() {
 	createCanvas(1000, 600);
     food.setX(random(10, 990));
-    food.setY(random(10, 600)) ;
+    food.setY(random(10, 590)) ;
     food2.setX(random(20, 990));
-    food2.setY(random(20, 600));
+    food2.setY(random(20, 590));
 }
 
 function draw() {
@@ -100,7 +98,8 @@ function draw() {
         play = 2;
 		isDead = false;
 		
-	}
+    }
+    
         
 	if (play === 1 && selected===true ) {
        
@@ -111,8 +110,7 @@ function draw() {
             //first thing checks to see if the dot dies
             death = collideCircleCircle(monster2.getX(), monster2.getY(), 45, player.getX(), player.getY(), 20)||collideCircleCircle(monster.getX(), monster.getY(), 35, player.getX(), player.getY(), 20);
             if (death === true) {
-                isDead = true;
-                
+                isDead = true;                
 			}
 			// this is some stuff about the dot.
 			food.draw();
@@ -121,7 +119,7 @@ function draw() {
                 foodCollide2 = collideCircleCircle(player.getX(), player.getY(), 20, food2.getX(), food2.getY(), 10);
 			    if (foodCollide2 === true) {
                     food2.setX(random(20, 990));
-                    food2.setY(random(20, 600)) ;
+                    food2.setY(random(20, 590)) ;
                     score += 2; 
                  }      
             }
@@ -129,7 +127,7 @@ function draw() {
 			foodCollide = collideCircleCircle(player.getX(), player.getY(), 20, food.getX(), food.getY(), 10);
 			if (foodCollide === true) {
                 food.setX(random(10,990));
-                food.setY(random(10, 600));
+                food.setY(random(10, 590));
                 score += 1;              				
 			}
 		
@@ -164,28 +162,35 @@ function draw() {
                  monster2.move(player.getX(),player.getX(),player.getY(),player.getY());
                  monster2.move(10,990,10,600);
              }
-        strokeWeight(4);
-        stroke(163, 31, 31)  
+        strokeWeight(2);
+        stroke(0)  
         monster2.draw();
                 
         }
 		
-		strokeWeight(4);
-        stroke(163, 31, 31);
+		strokeWeight(2);
+        stroke(0);
         monster.draw();
        
     }	
     
         
-	//---------------------------------------------------------------------------
-    
+    //---------------------------------------------------------------------------
+    if (respawn===true && selected===false) {
+        strokeWeight(1);
+        stroke(50);
+        fill(0);
+        textSize(35);
+        text("Please select another level ",300,300);
+       
+    }
     if (play === 0 && selected===true && change===true) {
             strokeWeight(5);
             fill(170);
-             rect(840, 20, 80, 80);
+            rect(840, 20, 80, 80);
             textSize(80);
             text("?", 850, 87);
-            fill(66, 244, 95);
+            fill(10,160,190);
             strokeWeight(1);
             noStroke();
             rect(400, 240, 200, 100);
@@ -203,29 +208,37 @@ function draw() {
             rect(840, 20, 80, 80);
             textSize(80);
             text("?", 850, 87);
-            noStroke();
+            strokeWeight(1);
+            stroke(50);
             fill(0);
-            textSize(35);
-            text("Please enter your name to the box at the top to start ", 100, 550);
+            textSize(35)
+            text("Please enter your name to the box, at the top to start ", 100, 300);
         }
      
         if (play === 2) {
            
             textSize(50);
-            strokeWeight(1);
+            strokeWeight(3);
+            stroke(0);
             fill('red');
             text("You are dead... ", 300, 230);
             //restart button..
-            fill(7, 186, 61);
+            strokeWeight(3);
+            stroke(0);
+            fill(10,160,190);
             rect(330, 250, 220, 70);
-            fill("blue");
+            noStroke();
+            fill("black");
             textSize(20);
             text("Restart with this level.", 340, 285);
-            fill(7, 186, 61);
+            strokeWeight(3);
+            stroke(0);
+            fill(10,160,190);
             rect(330, 350, 220, 70);
-            fill("blue");
+            noStroke();
+            fill("black");
             textSize(19);
-            text("Restart with another level", 335, 385);
+            text("Restart with another level", 332, 385);
             
             //shows how many points that you got
             fill("black");
