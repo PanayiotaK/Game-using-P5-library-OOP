@@ -1,11 +1,11 @@
 class Foods{
     constructor(x,y,h,w,sh,colour){
-        this.x=x;
-        this.y=y;
-        this.height=h;
-        this.width=w;
-		this.shape=sh;
-		this.colour=colour;
+        this.x=x || 20;
+        this.y=y || 20;
+        this.height=h || 10;
+        this.width=w || 10;
+		this.shape=sh ||"circle";
+		this.colour=colour || "black";
     }
     setColour(colour){
         this.colour = colour;
@@ -35,8 +35,9 @@ class Foods{
 
     
     draw(){
-        fill(this.colour);
         strokeWeight(1);
+        //stroke(0);
+        fill(this.colour);
         if(this.shape=="ellipse" || this.shape== "circle" ){           	    
             ellipse(this.x,this.y,this.width,this.height);
           
