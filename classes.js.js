@@ -32,22 +32,33 @@ class Foods{
     getY(){
         return this.y;                                                             
     }
-
     
-    draw(){
+    draw(k){
         strokeWeight(1);
         //stroke(0);
         fill(this.colour);
-        if(this.shape=="ellipse" || this.shape== "circle" ){           	    
-            ellipse(this.x,this.y,this.width,this.height);
-          
+        if(this.shape=="ellipse" || this.shape== "circle" ){  
+            if(k){
+                k.ellipse(this.x,this.y,this.width,this.height);}
+            else{
+                ellipse(this.x,this.y,this.width,this.height);
+            }          
         }
         else if(this.shape=="rectangle"|| this.shape=="square"){
-            rect(this.x,this.y, this.width,this.height);
+            if(k){
+                k.rect(this.x,this.y, this.width,this.height);
+            }
+            else{
+                rect(this.x,this.y, this.width,this.height);}
         }
        
         else if(this.shape=="triangle"){
-            triangle(this.x, this.y,this.x+this.width,this.y, this.x,this.y+this.height);
+            if(k){
+                k. triangle(this.x, this.y,this.x+this.width,this.y, this.x,this.y+this.height);
+            }
+            else{
+                triangle(this.x, this.y,this.x+this.width,this.y, this.x,this.y+this.height);;}
+           
         }
 	}
 
