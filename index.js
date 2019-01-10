@@ -6,7 +6,7 @@ var start, Res_Cur_level, foodCollide, info, back;
 var score = 0;
 var selected,foodCollide2;
 var change=false;
-var food, player,monster,monster2,level2,level3,food2,ContLevel,level1,r,g,b;
+var food, player,monster,monster2,level2,level3,food2,ContLevel,level1,r,g,b,k;
 level2=false; level3=false; level1=false; ContLevel=false; selected=false; 
 r=255;
 g=255;
@@ -37,6 +37,7 @@ var resetPos = function() {
 };
 
 function mousePressed() {
+    falloff = 1.0;
 	start=collidePointRect(mouseX, mouseY,400,240,200,100);
 	if (play===0 && start===true){
         play=1;
@@ -74,16 +75,17 @@ function mousePressed() {
 }
 
 function setup() {
-	createCanvas(1000,600);            
-    food=new Foods(random(10, 990),random(20, 590),10,10,"ellipse","black");
-    monster= new Players(-20,-29,35,40,"ellipse","red",1);
-    player= new Players(300,200,20,20,"circle","orange",20);
-    monster2=new Players(-10,-10,45,30,"ellipse","pink",2);
-    food2=new Foods(random(20, 990),random(20, 590),13,13,"triangle","black");
+    k=createCanvas(1000,600);  
+    food=new Foods(random(10, 990),random(20, 590),10,10,"ellipse","black",k);
+    monster= new Players(-20,-29,35,40,"ellipse","red",1,k);
+    player= new Players(300,200,20,20,"circle","orange",20,k);
+    monster2=new Players(-10,-10,45,30,"ellipse","pink",2,k);
+    food2=new Foods(random(20, 990),random(20, 590),13,13,"triangle","black",k);
      
 }
 
-function draw() {
+
+function draw() {    
     background(255);
 	stroke(0);
 	strokeWeight(10);
@@ -106,7 +108,7 @@ function draw() {
 			// this is some stuff about the dot.
 			food.draw();
             if(level3===true){
-                food2.draw();
+                food2.draw(k);
                 foodCollide2=collideCircleCircle(player.getX(),player.getY(),20, food2.getX(),food2.getY(),10);
 			    if (foodCollide2===true) {
                     food2.setX(random(20,990));
@@ -160,7 +162,7 @@ function draw() {
             monster2.draw();
                 
         }
-		
+       
         monster.draw();
        
     }	
@@ -353,3 +355,6 @@ document.addEventListener("DOMContentLoaded", function(){
         event2.preventDefault();
     });    
 });
+
+
+
