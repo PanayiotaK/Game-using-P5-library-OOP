@@ -36,13 +36,15 @@ class Foods{
     draw(k){
         strokeWeight(1);
         //stroke(0);
-        fill(this.colour);
-        if(this.shape=="ellipse" || this.shape== "circle" ){  
-            if(k){
-                k.ellipse(this.x,this.y,this.width,this.height);}
-            else{
-                ellipse(this.x,this.y,this.width,this.height);
-            }          
+        if(k){
+            k.fill(this.colour);
+        }
+        else{
+            fill(this.colour);
+        }
+        if(this.shape=="ellipse" || this.shape== "circle" ){            
+             ellipse(this.x,this.y,this.width,this.height);
+                     
         }
         else if(this.shape=="rectangle"|| this.shape=="square"){
             if(k){
@@ -64,6 +66,46 @@ class Foods{
 
 
 	
+}
+class buttons{
+    constructor(x,y,h,w,colour,tex_s,tex,Tx,Ty,strW,strok,Col_tex){
+        this.x=x;
+        this.y=y;
+        this.h=h;
+        this.w=w;
+        this.colour=colour;
+        this.strW=strW;
+        this.strok=strok;
+        this.Col_tex=Col_tex;
+        this.tex_s=tex_s;
+        this.tex=tex;
+        this.Tx=Tx;
+        this.Ty=Ty;
+
+    }
+
+    draw(k){
+        if(k){
+            k.fill(this.colour);
+            k.rect(this.x,this.y, this.width,this.height);
+            k.strokeWeight(this.strW);
+            k.stroke(this.strok);
+            k.fill(Col_tex);
+            k.textsize(this.tex_s);
+            k.tex(this.tex,this.Tx,this.Ty);
+        }
+        else{
+            fill(this.colour);
+            rect(this.x,this.y, this.width,this.height);
+            strokeWeight(this.strW);
+            stroke(this.strok);
+            fill(Col_tex);
+            textsize(this.tex_s);
+            tex(this.tex,this.Tx,this.Ty);
+        }
+
+    }
+
 }
 
 
