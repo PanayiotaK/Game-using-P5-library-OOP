@@ -6,7 +6,7 @@ var start, Res_Cur_level, foodCollide, info, back;
 var score = 0;
 var selected,foodCollide2;
 var change=false;
-var food, player,monster,monster2,level2,level3,food2,ContLevel,level1,r,g,b,k;
+var food, player,monster,monster2,level2,level3,food2,ContLevel,level1,r,g,b,k,question_mark,Play_B,Back,Cont_same,Cont_other;
 level2=false; level3=false; level1=false; ContLevel=false; selected=false; 
 r=255;
 g=255;
@@ -23,9 +23,9 @@ var resetPos = function() {
     food.setY(random(10,590));
     food2.setX(random(20,990));
     food2.setY(random(20,590)) ;
-    player.  setCalSpeed(1);
-    monster. setCalSpeed (1);
-    monster2. setCalSpeed(1);
+    player.setCalSpeed(1);
+    monster.setCalSpeed (1);
+    monster2.setCalSpeed(1);
     player.setColour("orange");
     monster.setColour("red");
     monster2.setColour("pink");
@@ -70,27 +70,39 @@ function mousePressed() {
 	if (play===3 && back===true) {
         play=0;
     }
-    
-	
+    	
 }
 
 function setup() {
-    k=createCanvas(1000,600);  
-    food=new Foods(random(10, 990),random(20, 590),10,10,"ellipse","black",k);
-    monster= new Players(-20,-29,35,40,"ellipse","red",1,k);
-    player= new Players(300,200,20,20,"circle","orange",20,k);
-    monster2=new Players(-10,-10,45,30,"ellipse","pink",2,k);
-    food2=new Foods(random(20, 990),random(20, 590),13,13,"triangle","black",k);
-     
+    createCanvas(1000,600);  
+    food=new Foods(random(10, 990),random(20, 590),10,10,"ellipse","black");
+    monster= new Players(-20,-29,35,40,"ellipse","red",1);
+    player= new Players(300,200,20,20,"circle","orange",20);
+    monster2=new Players(-10,-10,45,30,"ellipse","pink",2);
+    food2=new Foods(random(20, 990),random(20, 590),13,13,"triangle","black");
+    question_mark=new buttons(840, 20, 80, 80,170,80,"?",850,87);
+    Play_B=new buttons(400, 240,200,100,col,75,"Play!",410,300);
+    Back=new buttons (800,500,140,80,80,55,"Back",810,560);
+    Cont_same=new buttons(330,250,220,70,col,20,"Restart with this level",340,285);
+    Cont_other=new buttons(330,350,220,70,col,19,"Restart with another level",332,385);
+
 }
 
 
-function draw() {    
+function draw() {  
     background(255);
 	stroke(0);
 	strokeWeight(10);
     fill(r,g,b);
     rect(0,0,1000,600);
+    function ellipse(x,y,w,h){
+        if(k){
+          k.ellipse(x,y,w,h);
+        }
+        else{
+          ellipse(x,y,w,h);
+        }
+    }    
     //this is what happens when the player and the dot of death hit eachother
 	if (isDead===true) {
         play=2;
@@ -184,7 +196,7 @@ function draw() {
         textSize(80);
         text("?", 850, 87);
         fill(10,160,190);
-        strokeWeight(1);
+        strok(eWeight1);
         noStroke();
         rect(400, 240,200,100);
         stroke(0);
@@ -257,9 +269,9 @@ function draw() {
         textSize(55);
         text("Back",810,560);
     }
-    player. setCalSpeed(speed_div);
-    monster. setCalSpeed(speed_div); 
-    monster2. setCalSpeed(speed_div); 
+    player.setCalSpeed(speed_div);
+    monster.setCalSpeed(speed_div); 
+    monster2.setCalSpeed(speed_div); 
         
     console.log("to speed to player eiani "+ player.speed);
 
