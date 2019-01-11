@@ -68,40 +68,48 @@ class Foods{
 	
 }
 class buttons{
-    constructor(x,y,h,w,colour,tex_s,tex,Tx,Ty,strW,strok,Col_tex){
+    constructor(sh_strW,sh_strok,x,y,h,w,sh_r,sh_g,sh_b,tex_s,tex,Tx,Ty,strW,strok,Col_tex){
+        this.sh_strW=sh_strW 
+        this.sh_strok=sh_strok 
         this.x=x;
         this.y=y;
         this.h=h;
         this.w=w;
-        this.colour=colour;
-        this.strW=strW;
-        this.strok=strok;
-        this.Col_tex=Col_tex;
+        this.sh_r=sh_r;
+        this.sh_g=sh_g;
+        this.sh_b=sh_b;        
         this.tex_s=tex_s;
         this.tex=tex;
         this.Tx=Tx;
-        this.Ty=Ty;
+        this.Ty=Ty;        
+        this.strW=strW 
+        this.strok=strok 
+        this.Col_tex=Col_tex 
 
     }
 
     draw(k){
         if(k){
-            k.fill(this.colour);
-            k.rect(this.x,this.y, this.width,this.height);
+            k.strokeWeight(this.sh_strW);
+            k.stroke(this.sh_strok);
+            k.fill(this.sh_r, this.sh_g, this.sh_b);
+            k.rect(this.x,this.y, this.w,this.h);
             k.strokeWeight(this.strW);
             k.stroke(this.strok);
-            k.fill(Col_tex);
-            k.textsize(this.tex_s);
-            k.tex(this.tex,this.Tx,this.Ty);
+            k.fill(this.Col_tex);
+            k.textSize(this.tex_s);
+            k.text(this.tex,this.Tx,this.Ty);
         }
         else{
-            fill(this.colour);
-            rect(this.x,this.y, this.width,this.height);
+            strokeWeight(this.sh_strW);
+            stroke(this.sh_strok);
+            fill(this.sh_r,this.sh_g,this.sh_b);
+            rect(this.x,this.y, this.h,this.w);
             strokeWeight(this.strW);
             stroke(this.strok);
-            fill(Col_tex);
-            textsize(this.tex_s);
-            tex(this.tex,this.Tx,this.Ty);
+            fill(this.Col_tex);
+            textSize(this.tex_s);
+            text(this.tex,this.Tx,this.Ty);
         }
 
     }
