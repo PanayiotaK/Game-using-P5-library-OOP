@@ -8,23 +8,27 @@ class Foods{
 		this.colour=colour || "black";
     }
     setColour(colour){
-        this.colour = colour;
+        if(typeof colour=="string"){
+            this.colour = colour;}
     }
     getColour(){
         return this.colour;
     }
     setShape(shape){
-        this.shape=shape;
+        if(typeof colour=="string"){
+            this.shape=shape;}
     }
     getShape(){
         return this.shape;
     }
 
     setX(val_x){
-        this.x=val_x;
+        if(typeof val_x=="number"){
+            this.x=val_x;}
     }
     setY(val_y){
-        this.y=val_y;
+        if(typeof val_y=="number"){
+            this.y=val_y;}
     }
     getX(){
         return this.x ;
@@ -42,10 +46,14 @@ class Foods{
         else{
             fill(this.colour);
         }
-        if(this.shape=="ellipse" || this.shape== "circle" ){            
-             ellipse(this.x,this.y,this.width,this.height);
-                     
-        }
+        if(this.shape=="ellipse" || this.shape== "circle" ){  
+            if(k){          
+                k.ellipse(this.x,this.y,this.width,this.height);}
+            else{
+                ellipse(this.x,this.y,this.width,this.height);}
+
+        }                     
+        
         else if(this.shape=="rectangle"|| this.shape=="square"){
             if(k){
                 k.rect(this.x,this.y, this.width,this.height);
@@ -64,9 +72,8 @@ class Foods{
         }
 	}
 
-
-	
 }
+
 class buttons{
     constructor(sh_strW,sh_strok,x,y,h,w,sh_r,sh_g,sh_b,tex_s,tex,Tx,Ty,strW,strok,Col_tex){
         this.sh_strW=sh_strW 
@@ -114,6 +121,39 @@ class buttons{
 
     }
 
+}
+
+class Players extends Foods{
+    constructor(x,y,h,w,sh,colour,sp){
+		super(x,y,h,w,sh,colour);
+		this.Startspeed=sp || 20;
+		this.speed=sp || 20; }
+		 
+	 getCalspeed(){
+		 return this.speed;
+	 }
+	 setCalSpeed(v){
+        if(typeof v=="number"){
+		    this.speed=this.Startspeed+score /v;}   
+	 }
+	
+	 
+	move(val1,val2,val3,val4){
+		if(this.x>val1){
+			this.x-=1;
+		}
+		if(this.x<val2){
+			this.x+=1;
+		}
+		if(this.y>val3){
+			this.y-=1;
+		}
+		if(this.y<val4){
+			this.y+=1;
+		}
+	}
+	
+	
 }
 
 
