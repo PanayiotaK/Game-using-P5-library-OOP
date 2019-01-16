@@ -16,6 +16,10 @@ var bl_text=0,blue_r=10 ,blue_g=160 ,blue_b=190, Play_w=200 , Play_h=100, Play_x
 var Con_sh_st=3, Con_w=220, Con_h=70,Con_x=Canv_x/3, Con_y=Can_y/3, Con_t_size=20, Con_t_x=Con_x+2, Con_t_y=Con_y+Con_h/2;
 var Con2_sh_St=Con_sh_st,Con2_h=Con_h,Con2_w=Con_w,Con2_x=Con_x, Con2_y=Con_y+Con_h+Can_y/20, Con2_t_size=19, Con2_t_x=Con_t_x+2, Con2_t_y=Con2_y+Con2_h/2;
 var rang_x=Canv_x-10, rang_y=Can_y-10; 
+var mon_x=-20 , mon_y=-29, mon_h=40, mon_w=35, mon_speed=1, mon_sh="ellipse", mon_col="red";
+var player_x=Math.trunc(Canv_x/3), player_y=Math.trunc(Can_y/3),  player_w=20,player_h=player_w,pl_col="orange" ,pl_sh="circle";
+var mon2_x=mon_x+10, mon2_y=mon_y+10, mon2_sh="ellipse",mon2_col="pink", mon2_sp=mon_speed*2,mon2_w=45,mon2_h=30;   
+var food2_w=13;
 level2=false; level3=false; level1=false; ContLevel=false; selected=false; 
 r=255;
 g=255;
@@ -28,10 +32,10 @@ var resetPos = function() {
     monster.setY(-29);
     monster2.setX(-10);
     monster2.setY(-10);
-    food.setX(random(10,990));
-    food.setY(random(10,590));
-    food2.setX(random(20,990));
-    food2.setY(random(20,590));
+    food.setX(random(10,rang_x));
+    food.setY(random(10,rang_y));
+    food2.setX(random(20,rang_x));
+    food2.setY(random(20,rang_y));
     player.setCalSpeed(1);
     monster.setCalSpeed (1);
     monster2.setCalSpeed(1);
@@ -84,10 +88,7 @@ function mousePressed() {
 function setup() {         
     createCanvas(Canv_x,Can_y);     
     var Food_x=random(10,rang_x), Food_y=random(20,rang_y);
-    var mon_x=-20 , mon_y=-29, mon_h=40, mon_w=35 , mon_speed=1, mon_sh="ellipse", mon_col="red";
-    var player_x=Math.trunc(Canv_x/3), player_y=Math.trunc(Can_y/3),  player_w=20,player_h=player_w,pl_col="orange" ,pl_sh="circle";
-    var mon2_x=mon_x+10, mon2_y=mon_y+10, mon2_sh="ellipse",mon2_col="pink", mon2_sp=mon_speed*2,mon2_w=45,mon2_h=30;       
-    var food2_x=random(20,rang_x) ,food2_y=Food_y , food2_w=13, food2_h=food2_w, food2_sh="triangle";      
+    var food2_x=random(20,rang_x) ,food2_y=Food_y ,food2_h=food2_w, food2_sh="triangle";      
     food=new Foods(Food_x,Food_y);
     monster= new Players(mon_x,mon_y,mon_w,mon_h,mon_sh,mon_col,mon_speed);
     player= new Players(player_x,player_y,player_w,player_h,pl_sh,pl_col);
@@ -106,15 +107,8 @@ function draw() {
 	stroke(0);
 	strokeWeight(10);
     fill(r,g,b);
-    rect(0,0,Canv_x,Can_y);
-    function ellipse(x,y,w,h){
-        if(k){
-          k.ellipse(x,y,w,h);
-        }
-        else{
-          ellipse(x,y,w,h);
-        }
-    }    
+    rect(0,0,Canv_x,Can_y);    
+        
     //this is what happens when the player and the dot of death hit eachother
 	if (isDead===true) {
         play=2;
@@ -152,18 +146,19 @@ function draw() {
         }
         
 		fill("orange");
-		textSize(30);
-        text("Score: " + score, 10,30);       
+        textSize(30);
+        var totalScore_y=Can_y/20+10, Levels_y=Can_y/10+13;
+        text("Score: " + score, 10,totalScore_y);       
         fill("Black");
         textSize(25);
         if(level1===true){             
-            text("Level 1",10,60);
+            text("Level 1",10,Levels_y);
         }
         if(level2===true){             
-            text("Level 2",10,60);
+            text("Level 2",10,Levels_y);
         }
         if(level3===true){             
-            text("Level 3",10,60);
+            text("Level 3",10,Levels_y);
         }
 
     
@@ -173,29 +168,28 @@ function draw() {
             monster.move(player.getX(),player.getX(),player.getY(),player.getY());
                     
         }
-        //monster.move(10,990,10,600);
+        
 
         if(level2===true || level3===true){
             for (q=0; q < monster2.speed; q++) {
                  monster2.move(player.getX(),player.getX(),player.getY(),player.getY());                
             }
-            //monster2.move(10,990,10,600);
+            
             monster2.draw();
                 
         }       
         monster.draw();
        
     }	
-    
-        
+            
     //---------------------------------------------------------------------------
     if ( Res_Cur_level===true && selected===false) {
         strokeWeight(1);
         stroke(50);
         fill(0);
         textSize(35);
-        var level_x=Canv_x/3, level_y=Can_y/2;
-        text("Please select another level ",level_x,level_x);
+        var level_x=Canv_x/4, level_y=Can_y/2;
+        text("Please select another level ",level_x,level_y);
        
     }
     if (play===0 && selected===true && change===true) {        
@@ -226,7 +220,7 @@ function draw() {
         fill("black");
         textSize(30);
         noStroke();
-        var score_x=Canv_x/3, score_y=(Can_y*4)/5;
+        var score_x=Canv_x/3, score_y=(Can_y*4)/5 + 10;
         text("You got: " + score + " point(s)",score_x,score_y);
        
     }
@@ -239,7 +233,8 @@ function draw() {
         textSize(20);
         noStroke();
         fill("black");
-        text("You are the orange dot and you need to avoid the evil dot(s). \nTo do this you need to move your mouse, but don't go too fast. \nCollect the black dots(Food) to earn points. Triangles worth 2 \n points .But, the more points that you have the faster that the \n game will let you move and the faster that the evil dot(s) will move.",30,100);
+        var textIns_x=Can_y/20,textIns_y=ins_y+Canv_x/20;
+        text("You are the orange dot and you need to avoid the evil dot(s). \nTo do this you need to move your mouse, but don't go too fast. \nCollect the black dots(Food) to earn points. Triangles worth 2 \n points .But, the more points that you have the faster that the \n game will let you move and the faster that the evil dot(s) will move.",textIns_x,textIns_y);
          //the back button
         Back_B.draw();
         
@@ -248,7 +243,7 @@ function draw() {
     monster.setCalSpeed(speed_div); 
     monster2.setCalSpeed(speed_div); 
         
-    console.log("to speed to player eiani "+ player.speed);
+    //console.log("to speed to player eiani "+ player.speed);
 
 }    
 
