@@ -9,6 +9,7 @@ The game consists of four classes ( `foods`, `players`, `buttons`,`Text` ), thre
 
 ##### Foods 
 In the foods class there are 6 properties, created by the constructor:
+
 Properties | Description
 --------- | -----------
     x,y     | the x and y are the coordinates that the program will start to draw the  food’s  shape. E.g. if we want a rectangle and pass 500 and 600 as the x and y coordinates the program will start from 500,600 and draw a rectangle of a certain height and width. 
@@ -63,6 +64,7 @@ If there is, then the button will be drawn on the renderer. If not then, the but
 
 ### Text
 The class text is created for the texts in the game. It has all  the properties of a text:
+
 Properties | Description
 --------- | -----------
 Text_x, Text_y | the x and y coordinates that the text will be drawn
