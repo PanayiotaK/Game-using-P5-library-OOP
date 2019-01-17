@@ -12,9 +12,9 @@ In the foods class there are 6 properties, created by the constructor:
 
 Properties | Description
 --------- | -----------
-    x,y     | the x and y are the coordinates that the program will start to draw the  food’s  shape. E.g. if we want a rectangle and pass 500 and 600 as the x and y coordinates the program will start from 500,600 and draw a rectangle of a certain height and width. 
-	width, height     | the height and the width of the food’s shape. 
-    shape 	| a string value that is going to determine the shape of the food. In this example the         foods are circles and triangles (level 3). 
+x,y     | the x and y are the coordinates that the program will start to draw the  food’s  shape. E.g. if we want a rectangle and pass 500 and 600 as the x and y coordinates the program will start from 500,600 and draw a rectangle of a certain height and width. 
+width, height     | the height and the width of the food’s shape. 
+shape 	| a string value that is going to determine the shape of the food. In this example the foods are circles and triangles (level 3). 
 colour | these property is used to adjust the colour of the shape. It’s always a string.
 
 All the properties will be assigned to a value even if we don’t pass any parameters, as there is an _OR_ statement and the property will take the value after the or symbol. In that way, if the user omits a parameter the program will run without errors. The values that the properties are going to take if there are no parameters are 20,20,10,10,”circle” and “black” for the `x` ,`y`, `width`, `height` and  `colour` respectively.
@@ -31,8 +31,7 @@ The `Players` class is created using inheritance, i.e. it inherits all the prope
 Properties | Description
 --------- | -----------
 Startspeed |	is the initial speed of the object. It is used to calculate the speed of the object as the score increases. 
-Speed |	the speed that the object has while playing. This speed is constantly changing as the score increases and as we chance levels. 
-If no parameters are passed to these properties they will both set to 20.
+Speed |	the speed that the object has while playing. This speed is constantly changing as the score increases and as we chance levels. If no parameters are passed to these properties they will both set to 20.
 
 ##### Methods:
 - `Move`: the move method is used to keep the object inside the canvas and to keep the player moving along with the mouse. If the player x coordinate is greater than the `mouseX` coordinate, that means that the player is ahead of the mouse and has to move to the left (closer to the mouse) by one. The same procedure is also used for moving to the right by one and for the y coordinates. 
