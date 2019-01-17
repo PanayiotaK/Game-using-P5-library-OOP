@@ -44,6 +44,7 @@ If no parameters are passed to these properties they will both set to 20.
 
 #### Buttons
 The class buttons is used for by the five buttons in the game: `Play_B`, `Back_B`, `question_mark`, `Cont_other`, `Cont_same`. The properties of the buttons are:
+
 Properties | Description
 --------- | -----------
 x,y | the x,y coordinates that the program will start to draw the rectangle 
