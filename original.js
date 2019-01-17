@@ -4,6 +4,7 @@ var isDead = false;
 var start, respawn, foodCollide, info, back;
 var score = 0;
 
+
 var player = {
 	x: 300,
 	y: 200,
@@ -23,6 +24,9 @@ var food = {
 }
 
 
+
+
+
 var resetPos = function() {
 	player.y = 200;
 	player.x = 300;
@@ -37,23 +41,23 @@ var resetPos = function() {
 //----------------------------------------------
 
 function mousePressed() {
-	start = collidePointRect(mouseX, mouseY,450, 240, 200, 100)
+	start = collidePointRect(mouseX, mouseY, 200, 130, 200, 100)
 	if (play === 0 && start === true) {
 		play = 1;
 
 	}
-	respawn = collidePointRect(mouseX, mouseY, 330, 270, 220, 70);
+	respawn = collidePointRect(mouseX, mouseY, 175, 150, 220, 70);
 	if (play === 2 && respawn === true) {
 		play = 1;
 		score = 0;
 
 	}
-	info = collidePointRect(mouseX, mouseY, 840, 20, 80, 80);
+	info = collidePointRect(mouseX, mouseY, 500, 20, 80, 80);
 	if (play === 0 && info === true) {
 		play = 3;
 	
 	}
-	back = collidePointRect(mouseX, mouseY,800, 600, 140, 80);
+	back = collidePointRect(mouseX, mouseY, 400, 300, 140, 80);
 	if (play === 3 && back === true) {
 		play = 0;
 	}
@@ -62,7 +66,7 @@ function mousePressed() {
 
 
 function setup() {
-	createCanvas(1000, 700);
+	createCanvas(600, 400);
 	food.x = random(10, 590);
 	food.y = random(10, 390);
 }
@@ -74,7 +78,7 @@ function draw() {
 	stroke(0);
 	strokeWeight(10);
 	fill(255);
-	rect(0, 0, 1000, 700);
+	rect(0, 0, 600, 400);
 	//this will set the speed of the dot and the player related to the points
 	player.speed = 20 + score / 4;
 	monster.speed = 1 + score / 4;
@@ -88,6 +92,10 @@ function draw() {
 		
 
 	}
+
+
+
+
 
 
 	if (play === 1) {
@@ -174,20 +182,20 @@ function draw() {
 		fill(66, 244, 95);
 		strokeWeight(1);
 		noStroke();
-		rect(450, 240, 200, 100);
+		rect(200, 130, 200, 100);
 		stroke(0);
 		fill(0);
 		textSize(75);
-		text("Play!", 450, 300);
+		text("Play!", 210, 210);
 		textSize(30);
 		//text("Info: Keep your mouse inside of the box! \nRun away from the monster (The red dot).", 10, 30);
-		text("Coded By Adin Jura! 			                           										 v[1.9]", 10, 650);
+		text("Coded By Adin Jura! 													 v[1.9]", 10, 380);
 		//the info box
 		strokeWeight(5);
 		fill(170);
-		rect(840, 20, 80, 80);
+		rect(500, 20, 80, 80);
 		textSize(80);
-		text("?", 850, 87);
+		text("?", 517, 87);
 		
 	}
 
@@ -197,39 +205,39 @@ function draw() {
 		textSize(50);
 		strokeWeight(3);
 		fill('red');
-		text("U is ded... ", 330, 250);
+		text("U is ded... ", 190, 100);
 		//restart button..
 		fill(7, 186, 61);
-		rect(330, 270, 220, 70);
+		rect(175, 150, 220, 70);
 		fill("blue");
 		textSize(50);
-		text("Restart.", 340, 320);
+		text("Restart.", 200, 200);
 		
 		//shows how many points that you got
 		fill("black");
 		textSize(30);
 		noStroke();
-		text("You got: " + score + " point(s)", 330, 400)
+		text("You got: " + score + " point(s)", 190, 300)
 
 	}
 	
 	if (play === 3) {
 		textSize(50);
-		text("Instructions:", 230, 60);
+		text("Instructions:", 175, 60);
 		//the text below...
 		textSize(20);
 		noStroke();
 		fill('black');
-		text("You are the orange dot and you need to avoid the evil red dot. \nTo do this you need to move your mouse, but don't go too fast. \nCollect the rainbow dots to earn points, but the more points that \nyou have the faster that the game will let you move and the \nfaster that the evil dot will move.", 30, 100);
+		text("You are the orange dot and you need to avoid the evil red dot. \nTo do this you need to move your mouse, but don't go too fast. \nCollect the rainbow dots to earn points, but the more points that \nyou have the faster that the game will let you move and the \nfaster that the evil dot will move.", 20, 100);
 		//the back button
 		stroke(0);
 		strokeWeight(5);
 		fill(172);
-		rect(800, 600, 140, 80);
+		rect(400, 300, 140, 80);
 		noStroke();
 		fill(0);
 		textSize(55);
-		text("Back", 810, 645);
+		text("Back", 410, 360);
 	}
 
 }
